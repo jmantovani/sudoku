@@ -1,0 +1,198 @@
+<!DOCTYPE HTML>
+<html lang="pt-br" class="smartcanvas"> 
+<head profile="http://www.w3.org/1999/xhtml/vocab">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+    <title>Super Sudoku Solver Analyser</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" >
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <link href='style.css' rel="stylesheet" type='text/css' />
+</head>
+<body>
+    <table cellpadding=0 cellspacing=0 >
+        <tr>
+            <td>
+                <table cellpadding=0 cellspacing=0 >
+                    <tr>
+                        <td id="posA1">&nbsp;</td>
+                        <td id="posA2">&nbsp;</td>
+                        <td id="posA3">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td id="posB1">&nbsp;</td>
+                        <td id="posB2">&nbsp;</td>
+                        <td id="posB3">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td id="posC1">&nbsp;</td>
+                        <td id="posC2">&nbsp;</td>
+                        <td id="posC3">&nbsp;</td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <table cellpadding=0 cellspacing=0 >
+                    <tr>
+                        <td id="posA4">&nbsp;</td>
+                        <td id="posA5">&nbsp;</td>
+                        <td id="posA6">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td id="posB4">&nbsp;</td>
+                        <td id="posB5">&nbsp;</td>
+                        <td id="posB6">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td id="posC4">&nbsp;</td>
+                        <td id="posC5">&nbsp;</td>
+                        <td id="posC6">&nbsp;</td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <table cellpadding=0 cellspacing=0 >
+                    <tr>
+                        <td id="posA7">&nbsp;</td>
+                        <td id="posA8">&nbsp;</td>
+                        <td id="posA9">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td id="posB7">&nbsp;</td>
+                        <td id="posB8">&nbsp;</td>
+                        <td id="posB9">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td id="posC7">&nbsp;</td>
+                        <td id="posC8">&nbsp;</td>
+                        <td id="posC9">&nbsp;</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table cellpadding=0 cellspacing=0 >
+                    <tr>
+                        <td id="posD1">&nbsp;</td>
+                        <td id="posD2">&nbsp;</td>
+                        <td id="posD3">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td id="posE1">&nbsp;</td>
+                        <td id="posE2">&nbsp;</td>
+                        <td id="posE3">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td id="posF1">&nbsp;</td>
+                        <td id="posF2">&nbsp;</td>
+                        <td id="posF3">&nbsp;</td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <table cellpadding=0 cellspacing=0 >
+                    <tr>
+                        <td id="posD4">&nbsp;</td>
+                        <td id="posD5">&nbsp;</td>
+                        <td id="posD6">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td id="posE4">&nbsp;</td>
+                        <td id="posE5">&nbsp;</td>
+                        <td id="posE6">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td id="posF4">&nbsp;</td>
+                        <td id="posF5">&nbsp;</td>
+                        <td id="posF6">&nbsp;</td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <table cellpadding=0 cellspacing=0 >
+                    <tr>
+                        <td id="posD7">&nbsp;</td>
+                        <td id="posD8">&nbsp;</td>
+                        <td id="posD9">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td id="posE7">&nbsp;</td>
+                        <td id="posE8">&nbsp;</td>
+                        <td id="posE9">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td id="posF7">&nbsp;</td>
+                        <td id="posF8">&nbsp;</td>
+                        <td id="posF9">&nbsp;</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table cellpadding=0 cellspacing=0 >
+                    <tr>
+                        <td id="posG1">&nbsp;</td>
+                        <td id="posG2">&nbsp;</td>
+                        <td id="posG3">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td id="posH1">&nbsp;</td>
+                        <td id="posH2">&nbsp;</td>
+                        <td id="posH3">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td id="posI1">&nbsp;</td>
+                        <td id="posI2">&nbsp;</td>
+                        <td id="posI3">&nbsp;</td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <table cellpadding=0 cellspacing=0 >
+                    <tr>
+                        <td id="posG4">&nbsp;</td>
+                        <td id="posG5">&nbsp;</td>
+                        <td id="posG6">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td id="posH4">&nbsp;</td>
+                        <td id="posH5">&nbsp;</td>
+                        <td id="posH6">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td id="posI4">&nbsp;</td>
+                        <td id="posI5">&nbsp;</td>
+                        <td id="posI6">&nbsp;</td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <table cellpadding=0 cellspacing=0 >
+                    <tr>
+                        <td id="posG7">&nbsp;</td>
+                        <td id="posG8">&nbsp;</td>
+                        <td id="posG9">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td id="posH7">&nbsp;</td>
+                        <td id="posH8">&nbsp;</td>
+                        <td id="posH9">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td id="posI7">&nbsp;</td>
+                        <td id="posI8">&nbsp;</td>
+                        <td id="posI9">&nbsp;</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <!--form-->
+        Nome do script<br>
+        <input id="caminho" value="aluno.js"><br>
+        <button onclick="readURL($('#caminho')[0])">Carregar e rodar</button>
+    <!--/form-->
+
+    <script src="script.js"></script>
+</body>
+</html>
