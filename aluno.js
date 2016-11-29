@@ -25,6 +25,15 @@ function checkSquare(jogo) {
 	}
 }
 
+//Variavel global que ira armazenar os elementos de cada linha
+var global_line = { A: [], B: [], C: [], D: [], E: [], F: [], G: [], H: [], I: [] };
+//Variavel global que ira armazenar os elementos de cada coluna
+var global_column = { 1: [], 2: [], 3: [], 4: [], 5: [], 6: [], 7: [], 8: [], 9: [] };
+
+function writeInGlobalLine(line, value){
+	global_line[line].push(value);
+}
+
 /*
 Verifica se o numero está presente na linha
 */
@@ -37,8 +46,36 @@ function checkLine() {
     for(var i = 0; i < 9; i++){
 		console.log('Coluna: ', linhas[i] );
         for(var j = 1; j <= 9; j++){
-				console.log(linhas[i] + j);
+			if (!hasValue(linhas[i] + j))
+				writeInGlobalLine(linhas[i], j);
+
+			console.log(linhas[i] + j);
 		}
+	}
+}
+
+/**
+ * Retorna o valor da célula
+ *
+ * @param field
+ * 	posião. ex. A1
+ * @returns {*}
+ * 	valor da posição
+ */
+function getValue(field) {
+	var value = $("#pos" + field)[0].innerHTML;
+	console.log('retornando valor: ' + value);
+	return value;
+}
+
+function hasValue(field) {
+	if($("#pos" + field)[0].innerHTML != '&nbsp;') {
+		console.log('Valor encontrado: ' + field)
+		return true;
+	}
+	else {
+		console.log('Valor não encontrado: ' + field)
+		return false;
 	}
 }
 
@@ -54,6 +91,7 @@ function checkColumn(jogo) {
     for(var i = 1; i <= 9; i++){
 		console.log('Coluna: ', i);
         for(var j = 0; j < 9; j++){
+			hasValue(linhas[j] + i);
 			console.log(linhas[j] + i);
 		}
 	}
@@ -74,6 +112,8 @@ function possiveisValores() {
 	
 }
 
+//Armazena as linhas que possuem preenchimento
+var Arrlinhas = ["A","B","C","D","E","F","G","H","I"];
 
 function resolver(jogo){
     //atribuir um valor na posição 
@@ -82,10 +122,19 @@ function resolver(jogo){
 	
 	var performance = window.performance;
 	var t0 = performance.now();
-	
-	checkColumn(jogo);
+
 	checkLine(jogo);
-	checkSquare(jogo);
+	//checkColumn(jogo);
+	//checkSquare(jogo);
+
+	countLine();
+
+	//hasValue('A1');
+	//hasValue('A3');
+
+	console.log('===============');
+	console.log(global_line);
+	console.log('===============');
 	
 	var t1 = performance.now();
 	console.log("Tempo de execução " + Math.round(t1 - t0) + " milliseconds.")
