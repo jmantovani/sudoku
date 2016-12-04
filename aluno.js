@@ -1,40 +1,21 @@
-function drawDebug(name) {
-	console.log('======');
-	console.log(name);
-}
+//======
+// Variaveis globais
+//======
 
-/*
-Verifica se o numero está presente na matriz 9x9
-*/
-function checkSquare(jogo) {
-	
-	drawDebug('Quadrante');
-	
-	var linhas = ["A","B","C","D","E","F","G","H","I"];
-	
-	for(var c = 1; c <= 9; c++){
-		x = ((c - 1) % 3) * 3 + 1;
-		y = Math.floor((c - 1) / 3) * 3;
-		console.log('Quadrante ' + (c));
-		
-		for(var i = 1; i <= 2; i++){
-			for(var j = 1; j <= 2; j++){
+//Variavel para saber se é para mostrar os resultados no console
+var debug = false;
 
-				if (!hasValue(linhas[i] + j)) {
+//Armazena as linhas que possuem preenchimento
+var Arrlinhas = ["A","B","C","D","E","F","G","H","I"];
 
+//Variavel global que ira armazenar os elementos de cada coluna
+var global_line = { A: [], B: [], C: [], D: [], E: [], F: [], G: [], H: [], I: [] };
 
-
-					//writeInGlobalLine(getValue(linhas[i], j));
-				}
-
-				console.log( linhas[y + j] + (x + i));
-			}
-		}
-	}
-}
+//Variavel global que ira armazenar os elementos de cada coluna
+var global_column = { 1: [], 2: [], 3: [], 4: [], 5: [], 6: [], 7: [], 8: [], 9: [] };
 
 //Variavel global que ira armazenar os elementos temporarios de cada cedula
-var global_sudoku = { 
+var global_sudoku = {
 	A1: [], A2: [], A3: [], A4: [], A5: [], A6: [], A7: [], A8: [], A9: [],
 	B1: [], B2: [], B3: [], B4: [], B5: [], B6: [], B7: [], B8: [], B9: [],
 	C1: [], C2: [], C3: [], C4: [], C5: [], C6: [], C7: [], C8: [], C9: [],
@@ -46,44 +27,229 @@ var global_sudoku = {
 	I1: [], I2: [], I3: [], I4: [], I5: [], I6: [], I7: [], I8: [], I9: []
 };
 
-//Variavel global que ira armazenar os elementos de cada coluna
-var global_line = { A: [], B: [], C: [], D: [], E: [], F: [], G: [], H: [], I: [] };
+//======
+// Funções de debug
+//======
 
-//Variavel global que ira armazenar os elementos de cada coluna
-var global_column = { 1: [], 2: [], 3: [], 4: [], 5: [], 6: [], 7: [], 8: [], 9: [] };
+/**
+ * Função para mostrar dados no console
+ * 
+ * @param variable
+ * 	Variavel a ser debuggada
+ */
+function consoleDebug(variable) {
+	
+	//Se a global variable debug estiver como true, irá debugar o código
+	if (debug)
+		console.log(variable);
+}
 
+//======
+// Funções de varredura geral
+//======
+
+/**
+ * Passa por todos os quadradantes
+ * 
+ * @param jogo
+ */
+function checkAllSquares(jogo) {
+
+	consoleDebug('Quadrante');
+
+	var linhas = ["A","B","C","D","E","F","G","H","I"];
+
+	for(var c = 1; c <= 9; c++){
+		x = ((c - 1) % 3) * 3 + 1;
+		y = Math.floor((c - 1) / 3) * 3;
+		consoleDebug('Quadrante ' + (c));
+
+		for(var i = 0; i <= 2; i++){
+			for(var j = 0; j <= 2; j++){
+				consoleDebug( linhas[y + j] + (x + i));
+
+				/**
+				 * @step1 Verifica se tem valor
+				 * @step2 Se não tiver: continua
+				 * @step3 Verifica: linha, coluna e quadrante
+				 * @step4 Se nenhum valor se repetir por todos os numeros:
+				 * @step5 adiciona no vetor
+				 * @step6 faz um for geral verificando se o numero esta sozinho
+				 * @step7 Se o numero estiver sozinho, coloca no tabuleiro
+				 * @step 8 Repete até que termine
+                 */
+
+				/** @step1 */
+				if (!hasValue(linhas[y + j] + (x + i))) {
+
+					/** @step3 */
+					
+
+				}
+
+			}
+		}
+	}
+}
 
 /**
  * Verifica se o numero está presente na linha
  */
-function checkLine() {
-	
-	drawDebug('Linha');
-	
+function checkAlllines() {
+
+	consoleDebug('Linha');
+
 	var linhas = ["A","B","C","D","E","F","G","H","I"];
 	var temp = [];
-	
-    for(var i = 0; i < 9; i++){
-		console.log('Coluna: ', linhas[i] );
-        for(var j = 1; j <= 9; j++){
+
+	for(var i = 0; i < 9; i++){
+		consoleDebug('Coluna: ', linhas[i] );
+		for(var j = 1; j <= 9; j++){
 
 
-        	if ( !numeropossuinalinha && !numeropossuicoluna && !numeropossuiquadrante) {
-        		//parei aq 
-			}
+			//if ( !numeropossuinalinha && !numeropossuicoluna && !numeropossuiquadrante) {
+			//parei aq
+			//}
 
-        	/*
-			if (!hasValue(linhas[i] + j)) {
+			/*
+			 if (!hasValue(linhas[i] + j)) {
 
-				//writeInGlobalLine(getValue(linhas[i], j));
-				console.log('aq');
-			}
-			*/
+			 //writeInGlobalLine(getValue(linhas[i], j));
+			 consoleDebug('aq');
+			 }
+			 */
 
-			console.log(linhas[i] + j);
+			consoleDebug(linhas[i] + j);
 		}
 	}
 }
+
+/**
+ * Faz uma varredura em todas as colunas
+ */
+function checkallColumns(jogo) {
+
+	consoleDebug('Coluna');
+
+	var linhas = ["A","B","C","D","E","F","G","H","I"];
+
+	for(var i = 1; i <= 9; i++){
+		consoleDebug('Coluna: ', i);
+		for(var j = 0; j < 9; j++){
+			hasValue(linhas[j] + i);
+			consoleDebug(linhas[j] + i);
+		}
+	}
+}
+
+//======
+// Funções de varredura especificas
+//======
+
+/**
+ * Verifica se o numero está sozinho
+ *
+ * @param jogo
+ */
+function checkSquare(jogo) {
+
+	consoleDebug('Quadrante');
+
+	var linhas = ["A","B","C","D","E","F","G","H","I"];
+
+	for(var c = 1; c <= 9; c++){
+		x = ((c - 1) % 3) * 3 + 1;
+		y = Math.floor((c - 1) / 3) * 3;
+		consoleDebug('Quadrante ' + (c));
+
+		for(var i = 0; i <= 2; i++){
+			for(var j = 0; j <= 2; j++){
+				consoleDebug( linhas[y + j] + (x + i));
+
+			}
+		}
+	}
+}
+
+/**
+ * Verifica se o numero está presente na linha
+ */
+function Checkline() {
+
+	consoleDebug('Linha');
+
+	var linhas = ["A","B","C","D","E","F","G","H","I"];
+	var temp = [];
+
+	for(var i = 0; i < 9; i++){
+		consoleDebug('Coluna: ', linhas[i] );
+		for(var j = 1; j <= 9; j++){
+
+
+			//if ( !numeropossuinalinha && !numeropossuicoluna && !numeropossuiquadrante) {
+			//parei aq 
+			//}
+
+			/*
+			 if (!hasValue(linhas[i] + j)) {
+
+			 //writeInGlobalLine(getValue(linhas[i], j));
+			 consoleDebug('aq');
+			 }
+			 */
+
+			consoleDebug(linhas[i] + j);
+		}
+	}
+}
+
+/**
+ Verifica se o numero está presente na coluna
+ */
+function checkColumn(jogo) {
+
+	consoleDebug('Coluna');
+
+	var linhas = ["A","B","C","D","E","F","G","H","I"];
+
+	for(var i = 1; i <= 9; i++){
+		consoleDebug('Coluna: ', i);
+		for(var j = 0; j < 9; j++){
+			hasValue(linhas[j] + i);
+			consoleDebug(linhas[j] + i);
+		}
+	}
+}
+
+/**
+ * Faz uma varredura por todos os quadrantes verificando se o vetor de
+ * temporarios está vazio
+ *
+ * @param jogo
+ */
+function verifyAloneNumber(jogo) {
+
+	consoleDebug('Quadrante');
+
+	var linhas = ["A","B","C","D","E","F","G","H","I"];
+
+	for(var c = 1; c <= 9; c++){
+		x = ((c - 1) % 3) * 3 + 1;
+		y = Math.floor((c - 1) / 3) * 3;
+		consoleDebug('Quadrante ' + (c));
+
+		for(var i = 0; i <= 2; i++){
+			for(var j = 0; j <= 2; j++){
+				consoleDebug( linhas[y + j] + (x + i));
+
+			}
+		}
+	}
+}
+
+//======
+// Funções de verificação de valores
+//======
 
 /**
  * Retorna o valor da célula
@@ -95,78 +261,47 @@ function checkLine() {
  */
 function getValue(field) {
 	var value = $("#pos" + field)[0].innerHTML;
-	console.log('retornando valor: ' + value);
+	consoleDebug('retornando valor: ' + value);
 	return value;
 }
 
+/**
+ * Verifica se a celula possue algum valor
+ *
+ * @param field
+ * @returns {boolean}
+ */
 function hasValue(field) {
 	if($("#pos" + field)[0].innerHTML != '&nbsp;') {
-		console.log('Valor encontrado: ' + field)
+		consoleDebug('Valor encontrado: ' + field)
 		return true;
 	}
 	else {
-		console.log('Valor não encontrado: ' + field)
+		consoleDebug('Valor não encontrado: ' + field)
 		return false;
 	}
 }
 
-/*
-Verifica se o numero está presente na coluna
-*/
-function checkColumn(jogo) {
-	
-	drawDebug('Coluna');
-	
-	var linhas = ["A","B","C","D","E","F","G","H","I"];
-	
-    for(var i = 1; i <= 9; i++){
-		console.log('Coluna: ', i);
-        for(var j = 0; j < 9; j++){
-			hasValue(linhas[j] + i);
-			console.log(linhas[j] + i);
-		}
-	}
-}
-
-/*
-
-*/
-function getSquareNumber(jogo) {
-	
-}
-
-
-/*
-Inscreve em cada um dos quadradinhos vazios os números possíveis (provisórios), isto é, que não se repitam em relação à linha, à coluna ou ao quadrado onde contidos:
-*/
-function possiveisValores() {
-	
-}
-
-//Armazena as linhas que possuem preenchimento
-var Arrlinhas = ["A","B","C","D","E","F","G","H","I"];
+//======
+// Funções padrão
+//======
 
 function resolver(jogo){
     //atribuir um valor na posição 
     //$("#posA1")[0].innerHTML = "1";
-	
-	
+
+	//Faz a contagem do tempo de perfomance
 	var performance = window.performance;
 	var t0 = performance.now();
 
-	checkLine(jogo);
-	//checkColumn(jogo);
-	//checkSquare(jogo);
 
-	//hasValue('A1');
-	//hasValue('A3');
+	checkAlllines(jogo);
+	checkallColumns(jogo);
+	checkAllSquares(jogo);
 
-	console.log('===============');
-	console.log(global_line);
-	console.log('===============');
 	
 	var t1 = performance.now();
-	console.log("Tempo de execução " + Math.round(t1 - t0) + " milliseconds.")
+	consoleDebug("Tempo de execução " + Math.round(t1 - t0) + " milliseconds.")
 	
     return jogo;
 }
