@@ -82,11 +82,18 @@ function checkAllSquares(jogo) {
 				/** @step1 */
 				if (!hasValue(linhas[y + j] + (x + i))) {
 
+					/** @step2 */
+
 					/** @step3 */
-					
+
+					if( checkline ) {
+
+
+
+					}
+
 
 				}
-
 			}
 		}
 	}
@@ -143,15 +150,29 @@ function checkallColumns(jogo) {
 }
 
 //======
-// Funções de varredura especificas
+// Sem nome ainda
 //======
 
 /**
- * Verifica se o numero está sozinho
+ * Coloca os possiveis valores num temporario
  *
- * @param jogo
+ * @param line
+ * @param column
  */
-function checkSquare(jogo) {
+function setPossibleValues(line, column) {
+
+	//Line letter, column: number
+
+	var tmpLine = checkline(line);
+	var tmpColumn = checkColumn(column);
+	var tmpSquare = checkSquare(getQuadrante(line + column));
+
+	console.log(tmpLine);
+	console.log(tmpColumn);
+	console.log(tmpSquare);
+}
+
+function getQuadrante(field) {
 
 	consoleDebug('Quadrante');
 
@@ -162,63 +183,108 @@ function checkSquare(jogo) {
 		y = Math.floor((c - 1) / 3) * 3;
 		consoleDebug('Quadrante ' + (c));
 
-		for(var i = 0; i <= 2; i++){
-			for(var j = 0; j <= 2; j++){
+		for (var i = 0; i <= 2; i++) {
+			for (var j = 0; j <= 2; j++) {
 				consoleDebug( linhas[y + j] + (x + i));
+
+				//Se a linha do foreach for igual a celula passada, retorna o
+				//numero do quadrante
+				if ( linhas[y + j] + (x + i) == field)
+					return c;
 
 			}
 		}
+
 	}
+
+	consoleDebug(valoresQuadrante);
+
+	return valoresQuadrante;
+}
+
+//======
+// Funções de varredura especificas
+//======
+
+/**
+ * Verifica se o numero está sozinho
+ *
+ * @param jogo
+ */
+function checkSquare(quadrante) {
+
+	consoleDebug('Quadrante');
+
+	var linhas = ["A","B","C","D","E","F","G","H","I"];
+
+	var valoresQuadrante = [];
+
+	for(var c = 1; c <= 9; c++){
+		x = ((c - 1) % 3) * 3 + 1;
+		y = Math.floor((c - 1) / 3) * 3;
+		consoleDebug('Quadrante ' + (c));
+
+		if(quadrante == c) {
+			for (var i = 0; i <= 2; i++) {
+				for (var j = 0; j <= 2; j++) {
+					consoleDebug( linhas[y + j] + (x + i));
+
+					if ( hasValue(linhas[y + j] + (x + i)) ) {
+						//Adiciona o valor no temp
+						valoresQuadrante.push(getValue(linhas[y + j] + (x + i)));
+					}
+				}
+			}
+		}
+	}
+
+	consoleDebug(valoresQuadrante);
+
+	return valoresQuadrante;
 }
 
 /**
  * Verifica se o numero está presente na linha
  */
-function Checkline() {
+function checkline(line) {
 
-	consoleDebug('Linha');
+	var valoresLine = [];
 
-	var linhas = ["A","B","C","D","E","F","G","H","I"];
-	var temp = [];
+	//Verifica toda a linha, do 1 até o 9
+	for(var j = 1; j <= 9; j++){
 
-	for(var i = 0; i < 9; i++){
-		consoleDebug('Coluna: ', linhas[i] );
-		for(var j = 1; j <= 9; j++){
-
-
-			//if ( !numeropossuinalinha && !numeropossuicoluna && !numeropossuiquadrante) {
-			//parei aq 
-			//}
-
-			/*
-			 if (!hasValue(linhas[i] + j)) {
-
-			 //writeInGlobalLine(getValue(linhas[i], j));
-			 consoleDebug('aq');
-			 }
-			 */
-
-			consoleDebug(linhas[i] + j);
+		if ( hasValue(line + j) ) {
+			//Adiciona o valor no temp
+			valoresLine.push(getValue(line + j));
 		}
 	}
+
+	consoleDebug(valoresLine);
+
+	return valoresLine;
 }
 
 /**
  Verifica se o numero está presente na coluna
  */
-function checkColumn(jogo) {
+function checkColumn(column) {
 
-	consoleDebug('Coluna');
+	var valoresColumn = [];
 
 	var linhas = ["A","B","C","D","E","F","G","H","I"];
 
-	for(var i = 1; i <= 9; i++){
-		consoleDebug('Coluna: ', i);
-		for(var j = 0; j < 9; j++){
-			hasValue(linhas[j] + i);
-			consoleDebug(linhas[j] + i);
+	for(var j = 0; j < 9; j++) {
+
+		console.log(linhas[j] + column);
+
+		if ( hasValue(linhas[j] + column) ) {
+			valoresColumn.push(getValue(linhas[j] + column));
 		}
 	}
+
+	consoleDebug(valoresColumn);
+	
+	return valoresColumn;
 }
 
 /**
@@ -294,11 +360,13 @@ function resolver(jogo){
 	var performance = window.performance;
 	var t0 = performance.now();
 
+	debug = false;
 
-	checkAlllines(jogo);
-	checkallColumns(jogo);
-	checkAllSquares(jogo);
+	setPossibleValues('A', 3);
 
+	//checkAlllines(jogo);
+	//checkallColumns(jogo);
+	//checkAllSquares(jogo);
 	
 	var t1 = performance.now();
 	consoleDebug("Tempo de execução " + Math.round(t1 - t0) + " milliseconds.")
