@@ -101,24 +101,28 @@ function checkAllSquares(jogo) {
 /**
  * Verifica se o numero está presente na linha
  */
-function checkAllFields() {
+function checkAllFields(jogo) {
 
-    consoleDebug('Linha');
+    do {
+        consoleDebug('Linha');
 
-    var linhas = ["A", "B", "C", "D", "E", "F", "G", "H", "I"];
-    var temp = [];
+        var linhas = ["A", "B", "C", "D", "E", "F", "G", "H", "I"];
+        var temp = [];
 
-    for (var i = 0; i < 9; i++) {
-        consoleDebug('Coluna: ', linhas[i]);
-        for (var j = 1; j <= 9; j++) {
+        for (var i = 0; i < 9; i++) {
+            consoleDebug('Coluna: ', linhas[i]);
+            for (var j = 1; j <= 9; j++) {
 
-            setPossibleValues(linhas[i], j);
+                setPossibleValues(linhas[i], j);
 
-            consoleDebug(linhas[i] + j);
+                consoleDebug(linhas[i] + j);
+            }
         }
-    }
 
-    setSureValues();
+        jogo = setSureValues(jogo);
+    }while( !gameComplete() );
+
+    return jogo;
 }
 
 /**
@@ -151,7 +155,7 @@ function gameComplete() {
  * Passa por todos os elementos da variavel global_sudoku
  * verificando se já é possivel saber o valor da celula
  */
-function setSureValues() {
+function setSureValues(jogo) {
 
     var linhas = ["A", "B", "C", "D", "E", "F", "G", "H", "I"];
 
@@ -162,12 +166,21 @@ function setSureValues() {
             if (global_sudoku[linhas[i] + j] != null ) {
 
                 // Se sobrou apenas 1 numero na celula
-                if (global_sudoku[linhas[i] + j].length == 1)
+                if (global_sudoku[linhas[i] + j].length == 1 && !hasValue(linhas[i] + j)) {
+
+                    //Set value visual
                     setValue(linhas[i] + j, global_sudoku[linhas[i] + j][0]);
+
+                    //Adiciona na variavel jogo
+
+                    jogo[linhas[i] + j] = parseInt(global_sudoku[linhas[i] + j][0]);
+                }
             }
 
         }
     }
+
+    return jogo;
 
 }
 
@@ -443,9 +456,9 @@ function resolver(jogo) {
         var t0 = performance.now();
     }
 
-    checkAllFields();
+    var jogo_finalizado = checkAllFields(jogo);
 
-    console.log(global_sudoku);
+    console.log(jogo_finalizado);
 
     if (debugTime) {
         var t1 = performance.now();
